@@ -13,11 +13,11 @@ const getProducts = async () => {
     for (let iter = 0; iter < products.length; iter++) {
       await dbOperations.insertProductDetailsToDB(products[iter]);
     }
-    return ('Successfully stored data!');
+    return (products);
   } catch (err) {
     return err.message;
   }
 };
 
 
-module.exports = getProducts;
+module.exports = { getProducts };

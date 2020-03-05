@@ -1,5 +1,5 @@
 const axios = require('axios');
-const getProducts = require('../../src/handlers/getProducts');
+const { getProducts } = require('../../src/handlers/getProducts');
 const dbOperations = require('../../src/utils/dbOperations');
 
 describe('the getProducts handler function,', () => {
@@ -12,10 +12,9 @@ describe('the getProducts handler function,', () => {
     });
     const mockStoreToDB = jest.spyOn(dbOperations, 'insertProductDetailsToDB');
     mockStoreToDB.mockResolvedValue();
-    const res = await getProducts();
+    await getProducts();
     expect(mockStoreToDB).toHaveBeenCalled();
     expect(mockAxios).toHaveBeenCalled();
-    expect(res).toBe('Successfully stored data!');
     mockStoreToDB.mockRestore();
     mockAxios.mockRestore();
   });
