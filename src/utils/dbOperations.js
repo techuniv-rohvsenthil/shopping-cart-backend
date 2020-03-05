@@ -16,4 +16,12 @@ const retrieveProductDetailsFromDB = async () => {
   return result;
 };
 
+const insertCartDetailsToDB = async (cartObj) => {
+  await db.carts.create({
+    item: cartObj.item,
+    quantity: cartObj.item,
+    price: cartObj.price,
+  });
+};
+
 module.exports = { insertProductDetailsToDB, retrieveProductDetailsFromDB };

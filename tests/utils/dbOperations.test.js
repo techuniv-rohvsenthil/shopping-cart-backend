@@ -35,4 +35,19 @@ describe('the retrieveProductDetailsFromDB function,', () => {
     expect(mockSequelize).toHaveBeenCalled();
     mockSequelize.mockRestore();
   });
+
+  describe('the insertCartDetailsToDB function,', () => {
+    const mockValues = {
+      item: 'test-item',
+      price: 20,
+      quantity: 1,
+    };
+    it('should insert cart details to db', async () => {
+      const mockSequelize = jest.spyOn(db.carts, 'create');
+      mockSequelize.mockResolvedValue();
+      await dbOperations.insertCartDetailsToDB();
+      expect(mockSequelize).toHaveBeenCalledWith(mockValues);
+      mockSequelize.mockRestore();
+    });
+  });
 });
