@@ -9,7 +9,7 @@ const buildServer = async () => {
       cors: true,
     },
   });
-  // server.route(routes);
+  server.route(routes);
   return server;
 };
 
