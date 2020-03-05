@@ -79,11 +79,18 @@ describe('the retrieveProductDetailsFromDB function,', () => {
   describe('the updateProductDetails function,', () => {
     it('should update the data (quantity) in db', async () => {
       const mockValues = { item: 'test-item', newQuantity: 20 };
+      const mockFind = jest.spyOn(db.products, 'findOne');
       const mockSequelize = jest.spyOn(db.products, 'update');
       mockSequelize.mockResolvedValue();
+      mockFind.mockResolvedValue({
+        dataValues: {
+          prodQuantity: 40,
+        },
+      });
       await dbOperations.updateProductDetails(mockValues.item, mockValues.newQuantity);
       expect(mockSequelize).toHaveBeenCalledWith({ prodQuantity: 20 }, { where: { prodName: 'test-item' } });
       mockSequelize.mockRestore();
+      mockFind.mockRestore();
     });
   });
 

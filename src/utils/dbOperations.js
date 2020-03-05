@@ -17,8 +17,13 @@ const retrieveProductDetailsFromDB = async () => {
 };
 
 const updateProductDetails = async (item, newQuantity) => {
+  const res = await db.products.findOne({
+    where: {
+      prodName: item,
+    },
+  });
   await db.products.update(
-    { prodQuantity: newQuantity },
+    { prodQuantity: res.dataValues.prodQuantity - newQuantity },
     { where: { prodName: item } },
   );
 };
