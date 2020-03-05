@@ -65,4 +65,14 @@ describe('the retrieveProductDetailsFromDB function,', () => {
       mockSequelizeDestroy.mockRestore();
     });
   });
+
+  describe('the retrieveCartDetailFromDB function,', () => {
+    it('should return the data in db', async () => {
+      const mockSequelize = jest.spyOn(db.carts, 'findAll');
+      mockSequelize.mockResolvedValue();
+      await dbOperations.retrieveCartDetailFromDB();
+      expect(mockSequelize).toHaveBeenCalled();
+      mockSequelize.mockRestore();
+    });
+  });
 });

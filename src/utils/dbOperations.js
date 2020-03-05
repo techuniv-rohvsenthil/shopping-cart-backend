@@ -37,9 +37,15 @@ const removeCartDetailFromDB = async (itemName) => {
   });
 };
 
+const retrieveCartDetailFromDB = async () => {
+  const res = await db.carts.findAll();
+  return res;
+};
+
 module.exports = {
   insertProductDetailsToDB,
   retrieveProductDetailsFromDB,
   insertCartDetailsToDB,
   removeCartDetailFromDB,
+  retrieveCartDetailFromDB,
 };
