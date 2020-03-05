@@ -16,6 +16,13 @@ const retrieveProductDetailsFromDB = async () => {
   return result;
 };
 
+const updateProductDetails = async (item, newQuantity) => {
+  await db.products.update(
+    { prodQuantity: newQuantity },
+    { where: { prodName: item } },
+  );
+};
+
 const insertCartDetailsToDB = async (cartObj) => {
   await db.carts.create({
     item: cartObj.item,
@@ -48,4 +55,5 @@ module.exports = {
   insertCartDetailsToDB,
   removeCartDetailFromDB,
   retrieveCartDetailFromDB,
+  updateProductDetails,
 };

@@ -75,4 +75,15 @@ describe('the retrieveProductDetailsFromDB function,', () => {
       mockSequelize.mockRestore();
     });
   });
+
+  describe('the updateProductDetails function,', () => {
+    it('should update the data (quantity) in db', async () => {
+      const mockValues = { item: 'test-item', newQuantity: 20 };
+      const mockSequelize = jest.spyOn(db.products, 'update');
+      mockSequelize.mockResolvedValue();
+      await dbOperations.updateProductDetails(mockValues.item, mockValues.newQuantity);
+      expect(mockSequelize).toHaveBeenCalledWith({ prodQuantity: 20 }, { where: { prodName: 'test-item' } });
+      mockSequelize.mockRestore();
+    });
+  });
 });
