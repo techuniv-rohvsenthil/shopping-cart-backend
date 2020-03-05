@@ -45,9 +45,24 @@ describe('the retrieveProductDetailsFromDB function,', () => {
     it('should insert cart details to db', async () => {
       const mockSequelize = jest.spyOn(db.carts, 'create');
       mockSequelize.mockResolvedValue();
-      await dbOperations.insertCartDetailsToDB();
+      await dbOperations.insertCartDetailsToDB(mockValues);
       expect(mockSequelize).toHaveBeenCalledWith(mockValues);
       mockSequelize.mockRestore();
+    });
+  });
+
+  describe('the removeCartDetailFromDB function,', () => {
+    const itemName = 'test-item';
+    it('should insert cart details to db', async () => {
+      const mockSequelize = jest.spyOn(db.carts, 'findOne');
+      mockSequelize.mockResolvedValue(1);
+      const mockSequelizeDestroy = jest.spyOn(db.carts, 'destroy');
+      mockSequelizeDestroy.mockResolvedValue();
+      await dbOperations.removeCartDetailFromDB(itemName);
+      expect(mockSequelize).toHaveBeenCalled();
+      expect(mockSequelizeDestroy).toHaveBeenCalled();
+      mockSequelize.mockRestore();
+      mockSequelizeDestroy.mockRestore();
     });
   });
 });

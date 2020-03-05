@@ -19,9 +19,27 @@ const retrieveProductDetailsFromDB = async () => {
 const insertCartDetailsToDB = async (cartObj) => {
   await db.carts.create({
     item: cartObj.item,
-    quantity: cartObj.item,
+    quantity: cartObj.quantity,
     price: cartObj.price,
   });
 };
 
-module.exports = { insertProductDetailsToDB, retrieveProductDetailsFromDB };
+const removeCartDetailFromDB = async (itemName) => {
+  const res = await db.carts.findOne({
+    where: {
+      item: itemName,
+    },
+  });
+  await db.carts.destroy({
+    where: {
+      id: res.id,
+    },
+  });
+};
+
+module.exports = {
+  insertProductDetailsToDB,
+  retrieveProductDetailsFromDB,
+  insertCartDetailsToDB,
+  removeCartDetailFromDB,
+};
