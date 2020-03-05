@@ -86,4 +86,17 @@ describe('the retrieveProductDetailsFromDB function,', () => {
       mockSequelize.mockRestore();
     });
   });
+
+  describe('the removeAllFromCart function,', () => {
+    it('should delete all records in db', async () => {
+      const mockSequelize = jest.spyOn(db.carts, 'destroy');
+      mockSequelize.mockResolvedValue();
+      await dbOperations.removeAllFromCart();
+      expect(mockSequelize).toHaveBeenCalledWith({
+        where: {},
+        truncate: true,
+      });
+      mockSequelize.mockRestore();
+    });
+  });
 });

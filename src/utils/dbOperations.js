@@ -23,6 +23,13 @@ const updateProductDetails = async (item, newQuantity) => {
   );
 };
 
+const removeAllFromCart = async () => {
+  await db.carts.destroy({
+    where: {},
+    truncate: true,
+  });
+};
+
 const insertCartDetailsToDB = async (cartObj) => {
   await db.carts.create({
     item: cartObj.item,
@@ -56,4 +63,5 @@ module.exports = {
   removeCartDetailFromDB,
   retrieveCartDetailFromDB,
   updateProductDetails,
+  removeAllFromCart,
 };
