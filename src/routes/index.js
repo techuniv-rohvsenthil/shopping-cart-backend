@@ -1,4 +1,4 @@
-const { getProducts } = require('../handlers/getDetails');
+const { getProducts } = require('../handlers/getProducts');
 
 const routeArray = [
   { path: '/products', method: 'GET', handler: getProducts },
