@@ -27,22 +27,12 @@ describe('the insertProductDetailsToDB function,', () => {
   });
 });
 
-describe('the isEmpty function,', () => {
-  it('should return true if no data is present', async () => {
+describe('the retrieveProductDetailsFromDB function,', () => {
+  it('should return the data in db', async () => {
     const mockSequelize = jest.spyOn(db.products, 'findAll');
-    mockSequelize.mockResolvedValue([]);
-    const res = await dbOperations.isEmpty();
+    mockSequelize.mockResolvedValue();
+    await dbOperations.retrieveProductDetailsFromDB();
     expect(mockSequelize).toHaveBeenCalled();
-    expect(res).toBe(true);
-    mockSequelize.mockRestore();
-  });
-
-  it('should return false if data is present', async () => {
-    const mockSequelize = jest.spyOn(db.products, 'findAll');
-    mockSequelize.mockResolvedValue([{ testField: 'test-data' }]);
-    const res = await dbOperations.isEmpty();
-    expect(mockSequelize).toHaveBeenCalled();
-    expect(res).toBe(false);
     mockSequelize.mockRestore();
   });
 });

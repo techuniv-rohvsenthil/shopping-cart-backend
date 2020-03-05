@@ -11,12 +11,9 @@ const insertProductDetailsToDB = async (prodObj) => {
   });
 };
 
-const isEmpty = async () => {
+const retrieveProductDetailsFromDB = async () => {
   const result = await db.products.findAll();
-  if (result.length < 1) {
-    return true;
-  }
-  return false;
+  return result;
 };
 
-module.exports = { insertProductDetailsToDB, isEmpty };
+module.exports = { insertProductDetailsToDB, retrieveProductDetailsFromDB };
