@@ -1,4 +1,4 @@
-'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const products = sequelize.define('products', {
     prodId: DataTypes.INTEGER,
@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     prodPrice: DataTypes.DECIMAL,
     prodQuantity: DataTypes.INTEGER,
     prodImage: DataTypes.STRING,
-    prodCategory: DataTypes.STRING
+    prodCategory: DataTypes.STRING,
   }, {});
-  products.associate = function(models) {
-    // associations can be defined here
-  };
+  // products.associate = function (models) {
+  //   // associations can be defined here
+  // };
   return products;
 };
