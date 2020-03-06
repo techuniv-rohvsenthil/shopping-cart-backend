@@ -23,7 +23,7 @@ describe('the getProducts handler function,', () => {
     mockAxios.mockRestore();
   });
 
-  it('should return error message when retrieve fails', async () => {
+  it('should return error message when store fails', async () => {
     const mockAxios = jest.spyOn(axios, 'get');
     mockAxios.mockResolvedValue({
       data: [{
@@ -39,6 +39,22 @@ describe('the getProducts handler function,', () => {
     expect(mockRetrieve).toHaveBeenCalled();
     expect(res).toBe('Failed to store to DB');
     mockStoreToDB.mockRestore();
+    mockRetrieve.mockRestore();
+    mockAxios.mockRestore();
+  });
+
+  it('should return error message when retrieve fails', async () => {
+    const mockAxios = jest.spyOn(axios, 'get');
+    mockAxios.mockResolvedValue({
+      data: [{
+        dataField: 'dataValue',
+      }],
+    });
+    const mockRetrieve = jest.spyOn(dbOperations, 'retrieveProductDetailsFromDB');
+    mockRetrieve.mockRejectedValue(new Error('Failed to retrieve from DB'));
+    const res = await getProducts();
+    expect(mockRetrieve).toHaveBeenCalled();
+    expect(res).toBe('Failed to retrieve from DB');
     mockRetrieve.mockRestore();
     mockAxios.mockRestore();
   });
